@@ -1,0 +1,21 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Docker
+.docker/
+docker-compose.override.yml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment Variables
+backend/.env
+frontend/.env.local
+
+.env
+# 20250116現在backend環境は不使用（README.md確認）
+backend

@@ -1,0 +1,47 @@
+version: '3.8'
+services:
+  frontend:
+    build: 
+      context: ./frontend
+      target: development
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    working_dir: /app
+    command: "npm run dev"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://backend:5002/api
+    depends_on:
+      - backend
+
+  backend:
+    build: 
+      context: ./backend
+      target: development
+    ports:
+      - "5002:5002"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    working_dir: /app
+    command: "npm run dev"
+    environment:
+      - MONGO_URI=${MONGO_URI}
+      - NODE_ENV=development
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:5.0
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+volumes:
+  mongodb_data:
+  
